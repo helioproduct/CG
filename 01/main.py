@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Ввод констант a, b, k, A, B
-a = float(input("Введите значение a (> 0): "))
+a = float(input("Введите значение a > 0: "))
 B = float(input("Введите значение B: "))
 
 # Генерируем значения x в заданном диапазоне [0, B]
