@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.widgets import Button
+
 import numpy as np
 
 
@@ -59,9 +61,31 @@ class Prism:
             ax.view_init(30, angle)
 
 
+def update_projection(projection):
+    if projection == "orthographic":
+        ax.view_init(90)
+
+    ax.clear()
+    prism.draw(ax, projection=projection)
+    plt.draw()
+
+
 # Create a prism and plot it
-fig = plt.figure(figsize=(10, 10))
+fig = plt.figure(figsize=(5, 8))
 ax = fig.add_subplot(111, projection="3d")
-prism = Prism(center=[0, 0], side_length=1, height=2)
+
+
+ax_ortho = plt.axes([0.7, 0.05, 0.1, 0.075])
+ax_iso = plt.axes([0.81, 0.05, 0.1, 0.075])
+btn_ortho = Button(ax_ortho, "Ortho")
+btn_iso = Button(ax_iso, "Iso")
+
+
+# Обработчики событий для кнопок
+btn_ortho.on_clicked(lambda event: update_projection("orthographic"))
+btn_iso.on_clicked(lambda event: update_projection("isometric"))
+
+
+prism = Prism(center=[0, 0], side_length=1, height=1)
 prism.draw(ax, projection="isometric")
 plt.show()
